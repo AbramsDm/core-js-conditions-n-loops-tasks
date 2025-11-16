@@ -71,8 +71,17 @@ function getMaxNumber(a, b, c) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  const positionQueenOnY = queen.y;
+  const positionQueenOnX = queen.x;
+  const positionKingOnY = king.y;
+  const positionKingOnX = king.x;
+  return (
+    positionQueenOnY === positionKingOnY ||
+    positionQueenOnX === positionKingOnX ||
+    Math.abs(positionQueenOnX - positionKingOnX) ===
+      Math.abs(positionQueenOnY - positionKingOnY)
+  );
 }
 
 /**
@@ -154,8 +163,57 @@ function convertToRomanNumerals(num) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let result = '';
+  for (let i = 0; i < numberStr.length; i += 1) {
+    const char = numberStr[i];
+    if (i > 0) {
+      result += ' ';
+    }
+    switch (char) {
+      case '1':
+        result += 'one';
+        break;
+      case '2':
+        result += 'two';
+        break;
+      case '3':
+        result += 'three';
+        break;
+      case '4':
+        result += 'four';
+        break;
+      case '5':
+        result += 'five';
+        break;
+      case '6':
+        result += 'six';
+        break;
+      case '7':
+        result += 'seven';
+        break;
+      case '8':
+        result += 'eight';
+        break;
+      case '9':
+        result += 'nine';
+        break;
+      case '0':
+        result += 'zero';
+        break;
+      case '-':
+        result += 'minus';
+        break;
+      case ',':
+      case '.':
+        result += 'point';
+        break;
+      default:
+        result += char;
+    }
+  }
+
+  return result;
 }
 
 /**
@@ -243,8 +301,21 @@ function isContainNumber(num, digit) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  let sumAllNumber = 0;
+  let leftSum = 0;
+  let rightSum = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    sumAllNumber += arr[i];
+  }
+  for (let i = 0; i < arr.length; i += 1) {
+    rightSum = sumAllNumber - leftSum - arr[i];
+    if (leftSum === rightSum) {
+      return i;
+    }
+    leftSum += arr[i];
+  }
+  return -1;
 }
 
 /**
